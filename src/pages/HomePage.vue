@@ -1,22 +1,55 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-5">
+        <form @submit.prevent="postGift()">
+          <label for="name">Gift Name</label>
+          <input v-model="tagName" required maxlength="40" type="text">
+          <label for="picture">Gift Picture Url</label>
+          <input v-model="giftPic" required maxlength="300" type="text" name="picture" id="">
+          <button>Post Gift</button>
+        </form>
+      </div>
     </div>
-  </div>
+    <div class="row">
+      <div v-for="gift in gifts" class="col-3">
+        <GiftCard :giftProp="gift"/>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
+import { computed, onMounted, ref } from 'vue';
+import GiftCard from '../components/GiftCard.vue';
+import {api} from '../services/AxiosService.js';
+import {giftService} from '../services/GiftService.js'
+import { AppState } from '../AppState';
+
 export default {
+
   setup() {
-    return {
-      
+    onMounted(()=>{
+      getGifts()
+    })
+    async function getGifts(){
+      await giftService.getGifts()
     }
-  }
+
+    async function postGift(){
+      await giftService.postGift(giftPic, tagName)
+    }
+    const tagName = ref('')
+    const giftPic = ref('')
+    return {
+      tagName,
+      giftPic,
+      getGifts,
+      postGift,
+      gifts: computed(()=> AppState.gifts)
+    }
+  },
+  components: {GiftCard}
 }
 </script>
 
