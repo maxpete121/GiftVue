@@ -7,5 +7,6 @@ export class Gift{
         this.opened = data.opened
         this.creatorId = data.creatorId
         this.profileIdsOpened = data.profileIdsOpened
+        this.id = data._id
     }
 }

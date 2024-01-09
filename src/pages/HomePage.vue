@@ -32,15 +32,19 @@ export default {
     onMounted(()=>{
       getGifts()
     })
+    const tagName = ref('')
+    const giftPic = ref('')
+    
     async function getGifts(){
       await giftService.getGifts()
     }
 
     async function postGift(){
-      await giftService.postGift(giftPic, tagName)
+      await giftService.postGift(giftPic.value, tagName.value)
+      getGifts()
+      tagName.value = ''
+      giftPic.value = ''
     }
-    const tagName = ref('')
-    const giftPic = ref('')
     return {
       tagName,
       giftPic,

@@ -8,5 +8,8 @@ export const AppState = reactive({
   account: {},
 
   /**@type {Gift[]} */
-  gifts: []
+  gifts: [],
+
+  /**@type {Gift} */
+  giftFind: null
 })
