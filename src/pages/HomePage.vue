@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="row">
-      <div v-for="gift in gifts" class="col-3">
+      <div v-for="gift in gifts" class="col-2">
         <GiftCard :giftProp="gift"/>
       </div>
     </div>
